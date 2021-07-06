@@ -1,12 +1,9 @@
 package kr.com.youhost.cfp.service;
 
-import kr.com.youhost.cfp.domain.User;
 import kr.com.youhost.cfp.querydsl.entity.UserDto;
-import kr.com.youhost.cfp.querydsl.entity.UserRole;
 import kr.com.youhost.cfp.querydsl.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,9 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +32,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.selectUser(username);
+        if(user == null) {
+            throw new UsernameNotFoundException(username);
+        }
         return null;
     }
 
@@ -66,7 +64,7 @@ public class UserService implements UserDetailsService {
 //
 //        if (!username.equals("test")) throw new UsernameNotFoundException("해당 유저가 존재하지 않습니다.");
 //
-//        return new ;
+//        return new User();
 //    }
 
 
