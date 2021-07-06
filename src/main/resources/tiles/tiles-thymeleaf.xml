@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+    <definition name=".front" template="/templates/layouts/layout">
+        <put-attribute name="header" value="/templates/fragments/header" type="thymeleaf"/>
+        <put-attribute name="common" value="/templates/common/common" type="thymeleaf"/>
+        <put-attribute name="footer" value="/templates/fragments/footer" type="thymeleaf"/>
+    </definition>
+</tiles-definitions>

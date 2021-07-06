@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="~{common/common :: commonHead}"></th:block>
+
+<!-- [header] 영역 시작 -->
+<th block th:if="${'frame' == 'no'}">
+    <header th:replace="~{fragments/header :: headerFragment}"></header>
+</th>
+<!-- [header] 영역 끝 -->
+<body>
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content"></div>
+<!-- [content] 영역 끝 -->
+</body>
+<!-- [footer] 영역 시작 -->
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<!-- [footer] 영역 끝 -->
+</html>

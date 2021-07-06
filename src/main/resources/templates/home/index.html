@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css"> </th:block>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script"> </th:block>
+<div id="main" layout:fragment="content">
+    <div>
+        <h1>hello</h1>
+        <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/user/signup}">회원가입</a>
+    </div>
+</div>
+</html>

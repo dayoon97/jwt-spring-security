@@ -1,0 +1,81 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+}
+
+group = 'kr.com.youhost'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-tiles2-spring4
+    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-tiles2-spring4', version: '2.1.1.RELEASE'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+    implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.0'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    implementation 'org.springframework.kafka:spring-kafka'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor ('org.projectlombok:lombok')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-apt'
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.11.2'
+//    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.11.2'
+//    compile group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+//    compile group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+    compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+}
+
+def querydslSrcDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main.java.srcDirs querydslSrcDir
+}
+
+// 여기부터 gradle 5.0 이후로 추가
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+test {
+    useJUnitPlatform()
+}

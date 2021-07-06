@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="commonHead">
+    <!-- 공통적인 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <!-- 개별적인 CSS -->
+    <th:block layout:fragment="css"></th:block>
+    <link rel="stylesheet" type="text/css" href="/static/css/content.css">
+
+    <!-- 공통으로 쓰이는 js파일을넣는다.-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</th:block>
+</html>
