@@ -1,0 +1,4 @@
+<select id="findbyName" parameterType="long" resultType="kr.com.youhost.cfp.result.Login">
+    SELECT user_nm
+      FROM tbl_user
+</select>

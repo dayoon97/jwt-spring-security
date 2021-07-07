@@ -1,6 +1,6 @@
 package kr.com.youhost.cfp.querydsl.repository;
 
-import kr.com.youhost.cfp.domain.User;
+import kr.com.youhost.cfp.querydsl.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

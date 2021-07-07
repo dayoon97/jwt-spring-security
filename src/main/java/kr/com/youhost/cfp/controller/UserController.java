@@ -1,20 +1,11 @@
 package kr.com.youhost.cfp.controller;
 
-import kr.com.youhost.cfp.domain.User;
-import kr.com.youhost.cfp.querydsl.entity.UserDto;
 import kr.com.youhost.cfp.querydsl.repository.UserRepository;
-import kr.com.youhost.cfp.service.UserService;
-import kr.com.youhost.cfp.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +14,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    //private UserService userService;
 
     @GetMapping("/")
     public ModelAndView index() {

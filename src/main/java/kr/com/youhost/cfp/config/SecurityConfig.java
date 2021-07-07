@@ -4,7 +4,6 @@ import kr.com.youhost.cfp.jwt.JwtAccessDeniedHandler;
 import kr.com.youhost.cfp.jwt.JwtAuthenticationEntryPoint;
 import kr.com.youhost.cfp.jwt.JwtSecurityConfig;
 import kr.com.youhost.cfp.jwt.TokenProvider;
-import kr.com.youhost.cfp.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -41,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).antMatchers("/favicon.ico");
     }
 
     @Override

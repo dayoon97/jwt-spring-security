@@ -1,15 +1,17 @@
-package kr.com.youhost.cfp.domain;
+package kr.com.youhost.cfp.querydsl.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tbl_new_user")
+@Table(name = "tbl_user")
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 public class User {
 
+    @JsonIgnore
     @Id
     @GeneratedValue
     private Long userId;

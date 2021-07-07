@@ -1,6 +1,5 @@
 package kr.com.youhost.cfp.querydsl.entity;
 
-import kr.com.youhost.cfp.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
