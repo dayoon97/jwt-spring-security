@@ -8,7 +8,7 @@ import java.util.Optional;
 @Component
 public class UserDao {
 
-    public UserVo findbyName(final String username) throws Exception {
+    public UserVo findbyName(String username) throws Exception {
         return selectOne(username, "user.findByName");
     }
 

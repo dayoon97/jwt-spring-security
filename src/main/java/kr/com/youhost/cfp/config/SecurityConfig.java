@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                   .anyRequest().hasRole("USER"); //그 외 나머지 요청은 모두 인증된 회원만 접근 가능
 //                    .anyRequest();
 //
-        http
+        http    .httpBasic().disable()
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
