@@ -10,6 +10,6 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 public class LoginDto {
 
-    private String username;
+    private String userid;
     private String password;
 }

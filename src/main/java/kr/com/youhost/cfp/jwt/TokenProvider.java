@@ -27,7 +27,6 @@ public class TokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "auth";
 
-
     private final String secret;
     private final long tokenValidityInMilliseconds;
 
@@ -38,11 +37,10 @@ public class TokenProvider implements InitializingBean {
         this.tokenValidityInMilliseconds = tokenValidityInMilliseconds * 1000;
     }
 
-
     //InitializingBean 을 implements하고 afterProertiesSet()을 오버라이드 한 이유
-    //빈이 생성이 되고 주입을 받은 후에 secret값을 Base64 Decode해서 Key변수에 할당당
-   @Override
-   public void afterPropertiesSet() {
+    //빈이 생성이 되고 주입을 받은 후에 secret값을 Base64 Decode해서 Key변수에 할당
+    @Override
+    public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -53,7 +51,7 @@ public class TokenProvider implements InitializingBean {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
         long now = (new Date()).getTime();
-        Date validity = new Date (now + this.tokenValidityInMilliseconds);
+        Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())

@@ -1,4 +1,14 @@
-<select id="findbyName" parameterType="long" resultType="kr.com.youhost.cfp.result.Login">
-    SELECT user_nm
-      FROM tbl_user
-</select>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.com.youhost.cfp.dao.UserMapper">
+    <select id="selectUserList" parameterType="kr.com.youhost.cfp.domain.UserVo" resultType="kr.com.youhost.cfp.domain.UserVo">
+        SELECT *
+          FROM tbl_user
+    </select>
+
+    <select id="findbyId" parameterType="kr.com.youhost.cfp.domain.UserVo" resultType="kr.com.youhost.cfp.domain.UserVo">
+        SELECT user_id, user_pw
+          FROM tbl_user
+         WHERE user_id = #{userid}
+    </select>
+</mapper>

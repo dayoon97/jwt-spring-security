@@ -12,10 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //로그인 API
 @RestController
@@ -28,11 +25,11 @@ public class AuthController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    @PostMapping("/api/authenticate")
+    @RequestMapping(value = "/api/authenticate", method = RequestMethod.POST)
     public ResponseEntity<TokenDto> authorize(@RequestBody LoginDto loginDto) {
-
+        System.out.println("loginDto userid : " + loginDto.getUserid() + " password : " + loginDto.getPassword());
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUserid(), loginDto.getPassword());
 
         //authenticate 메소드가 실행될 때 CustomUserDetailService 클래스의 loadUserByUsername 메소드가 실행이 됨.
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);

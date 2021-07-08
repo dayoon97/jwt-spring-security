@@ -4,14 +4,12 @@ spring:
       cache: false
     livereload:
       enabled: true
-  h2:
-    console:
-      enabled: true
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mysql://localhost/xfra_new?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;allowMultiQueries=true
-    username: emsone
-    password: dbghtmxm1!
+    hikari:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost/xfra_new?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;allowMultiQueries=true
+      username: emsone
+      password: dbghtmxm1!
 #  datasource:
 #    url: jdbc:h2:mem:testdb
 #    driver-class-name: org.h2.Driver
@@ -31,9 +29,17 @@ spring:
       suffix: .html
     static-path-pattern: /static/**
     static-location: /resources/**
-mybatis:
-  config-location: classpath:config/config-mybatis.xml
-  check-config-location: true
+    hiddenmethod:
+      filter:
+        enabled: true
+  #mybatis:
+#  mapper-locations: sqlmap/user/*.xml
+#  check-config-location: true
+  #type-aliases-package: kr.com.youhost.cfp.jpa
+#  configuration:
+#    multiple-result-sets-enabled: true
+#    map-underscore-to-camel-case: true
+  #config-location: classpath:config/mybatis-config.xml
 logging:
   level:
     org:

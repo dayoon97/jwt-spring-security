@@ -1,20 +1,25 @@
 package kr.com.youhost.cfp.controller;
 
-import kr.com.youhost.cfp.querydsl.repository.UserRepository;
+import kr.com.youhost.cfp.dao.UserDao;
+import kr.com.youhost.cfp.domain.UserVo;
+import kr.com.youhost.cfp.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
+    @Autowired
+    UserDao userDao;
 
     @Autowired
-    //private UserService userService;
+    UserLoginService userLoginService;
 
     @GetMapping("/")
     public ModelAndView index() {
@@ -47,34 +52,16 @@ public class UserController {
         return mv;
     }
 
-//    @PostMapping("/signup")
-//    public Object newUser(@RequestParam Map<String, Object> param) {
-//        //System.out.println(param.get("userId"));
-//        //System.out.println(param.get("userPassword"));
-//
-//        //return "1";
-//        //return userRepository.save(userDto);
-//        //Map<String, Object> result = new HashMap<String, Object>();;
-//        //System.out.println(param);
-//        //result.put("code", "0000");
-//        return userService.getUserName();
-////        return "/home/index";
-//    }
-
     @GetMapping("/api/hello")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("hello");
     }
 
-//    @GetMapping("/permit-all")
-//    public Object getTest() throws Exception {
-//        return userService.getTest();
-//    }
-//
-//    @GetMapping("/auth")
-//    public Object getTest2() throws Exception {
-//        return userService.getTest2();
-//    }
-
+    @GetMapping("/login")
+    public String login2(UserVo uservo) {
+        List<UserVo> selectUserList = userLoginService.selectUserList(uservo);
+        System.out.println("UserList" + selectUserList);
+        return "/";
+    }
 
 }

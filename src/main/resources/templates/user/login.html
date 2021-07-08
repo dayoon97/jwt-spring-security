@@ -7,9 +7,34 @@
 <body>
 <!-- content 영역 지정 -->
 <div id="main" layout:fragment="content">
-    <input th:type="text" name="username" placeholder="아이디">
-    <input th:type="password" name="password" placeholder="비밀번호">
-    <button type="submit">로그인</button>
+        <input th:type="text" name="username" placeholder="아이디" id="id">
+        <input th:type="password" name="password" placeholder="비밀번호" id="pwd">
+        <button type="submit" id="login">로그인</button>
+    <script>
+        $(document).on("click", "#login", function(){
+            let id = $("#id").val();
+            let pwd = $("#pwd").val();
+            let params = {
+                userid: id,
+                password: pwd
+            }
+            console.log(params);
+
+                $.ajax({
+                    type : "POST",            // HTTP method type(GET, POST) 형식이다.
+                    url : "/api/authenticate/",      // 컨트롤러에서 대기중인 URL 주소이다.
+                    data : JSON.stringify(params),            // Json 형식의 데이터이다.
+                    contentType: 'application/json; charset=utf-8',
+                    success : function(){
+                        alert("통신 성공");
+                    },
+                    error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                        alert("통신 실패.")
+                    }
+                });
+
+        });
+    </script>
 </div>
 </body>
 </html>

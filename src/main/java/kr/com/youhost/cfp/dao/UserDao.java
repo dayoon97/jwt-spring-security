@@ -8,9 +8,9 @@ import java.util.Optional;
 @Component
 public class UserDao {
 
-    public UserVo findbyName(String username) throws Exception {
-        return selectOne(username, "user.findByName");
-    }
+//    public UserVo findbyId(String id) throws Exception {
+//        return selectOne("user.findbyId", id);
+//    }
 
 
 }

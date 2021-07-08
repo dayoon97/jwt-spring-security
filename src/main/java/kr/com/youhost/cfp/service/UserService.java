@@ -1,32 +1,38 @@
-//package kr.com.youhost.cfp.service;
-//
-//import kr.com.youhost.cfp.dao.UserDao;
-//import kr.com.youhost.cfp.domain.UserVo;
-//import kr.com.youhost.cfp.querydsl.repository.UserRepository;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//import javax.transaction.Transactional;
-//import java.util.Collections;
-//
-//@Service
-//public class UserService implements UserDetailsService {
-//    //private final UserRepository userRepository;
-//    private UserDao userdao;
-//    private final PasswordEncoder passwordEncoder;
-//
-//    public UserService(UserDao userdao, PasswordEncoder passwordEncoder) {
-//        this.userdao = userdao;
-//        this.passwordEncoder = passwordEncoder;
-//    }
-//
+package kr.com.youhost.cfp.service;
+
+import kr.com.youhost.cfp.dao.UserDao;
+import kr.com.youhost.cfp.dao.UserMapper;
+import kr.com.youhost.cfp.domain.UserVo;
+import kr.com.youhost.cfp.jpa.Authority;
+import org.apache.catalina.security.SecurityUtil;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+
+
+@Service
+public class UserService {
+    //private final UserRepository userRepository;
+    private final UserMapper usermapper;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserMapper usermapper, PasswordEncoder passwordEncoder) {
+        this.usermapper = usermapper;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 //    @Transactional
 //    public User signup(UserVo userVo) {
-//        if (userdao.findbyName(userVo.getUserNm()).orElse(null) != null) {
+//        if (usermapper.findbyId(userVo.getUserId()).orElse(null) != null) {
 //            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
 //        }
 //
@@ -36,33 +42,25 @@
 //                .build();
 //
 //        User user = User.builder()
-//                .username(userDto.getUsername())
-//                .password(passwordEncoder.encode(userDto.getPassword()))
-//                .nickname(userDto.getNickname())
-//                .authorities(Collections.singleton(authority))
+//                .username(userVo.getUserId())
+//                .password(passwordEncoder.encode(userVo.getPassword()))
+//                .authorities((Collection<? extends GrantedAuthority>) Collections.singleton(authority))
 //                .activated(true)
 //                .build();
 //
 //        return userRepository.save(user);
 //    }
 //
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userDao.selectUser(username);
-//        if(user == null) {
-//            throw new UsernameNotFoundException(username);
-//        }
-//        return null;
+//    @Transactional(readOnly = true)
+//    public Optional<User> getUserWithAuthorities(String username) {
+//        return userRepository.findOneWithAuthoritiesByUsername(username);
 //    }
 //
-//    //DB에서 UserDetail을 얻어와 AuthenticationManager에게 제공하는 역할
-////    @Override
-////    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-////
-////        if (!username.equals("test")) throw new UsernameNotFoundException("해당 유저가 존재하지 않습니다.");
-////
-////        return new User();
-////    }
-//
-//
-//}
+//    @Transactional(readOnly = true)
+//    public Optional<User> getMyUserWithAuthorities() {
+//        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
+//    }
+
+
+
+}
