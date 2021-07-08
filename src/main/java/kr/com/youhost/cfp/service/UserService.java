@@ -51,10 +51,10 @@ public class UserService {
 //        return userRepository.save(user);
 //    }
 //
-//    @Transactional(readOnly = true)
-//    public Optional<User> getUserWithAuthorities(String username) {
-//        return userRepository.findOneWithAuthoritiesByUsername(username);
-//    }
+    @Transactional(readOnly = true)
+    public Optional<UserVo> getUserWithAuthorities(String username) {
+        return usermapper.findbyId(username);
+    }
 //
 //    @Transactional(readOnly = true)
 //    public Optional<User> getMyUserWithAuthorities() {

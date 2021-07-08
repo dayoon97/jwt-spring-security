@@ -14,11 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserDao userDao;
     private final UserMapper usermapper;
 
-    public CustomUserDetailsService(UserDao userDao, UserMapper usermapper) {
-        this.userDao = userDao;
+    public CustomUserDetailsService(UserMapper usermapper) {
         this.usermapper = usermapper;
     }
 
@@ -26,9 +24,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userid) {
-        return usermapper.findbyId(userid)
-                .map(user -> createUser(userid, user))
-                .orElseThrow(() -> new UsernameNotFoundException(userid + " -> 데이터베이스에서 찾을 수 없습니다."));
+        UserVo user = usermapper.findbyId(userid).orElseThrow(() -> new UsernameNotFoundException(userid + " -> 데이터베이스에서 찾을 수 없습니다."));
+        if(user.getUserId().equals(userid)) {
+            new UsernameNotFoundException(userid + " -> 데이터베이스에서 찾을 수 없습니다.");
+        }
+        return new User(user.getUserId(), user.getUserPw());
+//        return usermapper.findbyId(userid)
+//                .orElseThrow(() -> new UsernameNotFoundException(userid + " -> 데이터베이스에서 찾을 수 없습니다."));
+//                .map(user -> createUser(userid, user))
+
     }
 
 
